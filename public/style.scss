@@ -1,5 +1,9 @@
-$body-color: red;
+@import 'reset.scss';
+@import './scss/variable/color.scss';
+@import './scss/partials/header.scss';
+@import './scss/pages/login.scss';
+@import 'index.scss';
 
 body {
-  color: $body-color;
+  color: $zenly-color;
 }
