@@ -16,7 +16,7 @@ const button = () => {
         <p>Login</p>
     `
     const PostLogin = () => {
-        fetch('http://3.35.151.102:8080/sparta/hello').then((resolve, reject) => {
+        fetch('/sparta/hello').then((resolve, reject) => {
             console.log(resolve)
         })
     }

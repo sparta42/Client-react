@@ -8,7 +8,9 @@ module.exports = merge(common, {
         historyApiFallback: true,
         port: 4000,
         proxy: {
-            '/sparta': 'http://3.35.151.102:8080',
+            '/sparta': {
+                    target: 'http://3.35.151.102:8080'
+                }
+            },
         },
-    }
 });
