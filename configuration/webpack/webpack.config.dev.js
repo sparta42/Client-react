@@ -7,6 +7,8 @@ module.exports = merge(common, {
     devServer: {
         historyApiFallback: true,
         port: 4000,
-        //proxy: '',
+        proxy: {
+            '/sparta': 'http://3.35.151.102:8080',
+        },
     }
 });
