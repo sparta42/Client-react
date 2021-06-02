@@ -1,7 +1,12 @@
 import '../public/style.scss'
+import Login from './login'
 
-document.body.innerHTML = `
-    <div>
-        <p>login Page</p>
-    </div>
-`
+const Main = () => {
+    const main = document.createElement('div');
+
+    main.appendChild(Login());
+
+    return main;
+};
+
+document.body.appendChild(Main());
