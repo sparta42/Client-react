@@ -1,5 +1,27 @@
-$body-color: red;
+$body-color: rgb(255, 0, 0);
 
-body {
-  color: $body-color;
+.loginField {
+  background: rgb(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.login {
+  color: tomato;
+  margin: auto;
+  width: 30%;
+  height: 600px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginSocial {
+  padding: 20px;
+  display: flex;
 }
