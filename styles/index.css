@@ -1,0 +1,73 @@
+@import "reset.css";
+@import "normalize.css";
+
+.wrapper {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+}
+
+.flexWrapper {
+	display: flex;
+	align-items: center;
+}
+
+.flexColumnAlign {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.backgroundImage {
+	background-image: url(https://www.grunge.com/img/gallery/messed-up-things-you-didnt-know-about-the-spartans/intro-1562185752.webp);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 0.4;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.inputWrapper {
+	height: 80%;
+	width: 40%;
+	margin: auto;
+	font-size: 20px;
+}
+
+.inputNbuttonDesign {
+	height: 70px;
+	width: 80%;
+	border-radius: 36px;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;	
+	padding: 0 24px;
+	margin: 0 auto;
+}
+
+.inputDesign {
+	background: transparent;
+	backdrop-filter: blur(10px);
+	margin-bottom: 16px;
+}
+
+.buttonDesign {
+	z-index: 1;
+	color: white;
+	margin: 8px auto;
+}
+
+.loginButton {
+	background-color:#EC7063;
+	margin: 48px auto;
+}
+
+.socialLogin42 {
+	background-color: turquoise;
+	z-index: 1;
+}
+
+.socialLoginGoogle {
+	background-color: darkblue;
+	z-index: 1;
+}
