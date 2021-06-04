@@ -17,11 +17,30 @@ const postUserLoginInfo = (email, password) => {
             }
         )
     })
-        .then((response) => response.json())
-        .then(response => {
-            console.log(response);
+    .then((response) => response.json())
+    .then(response => {
+        console.log(response);
+        window.localStorage.setItem('access_token', response.accessToken);
+    })
+    .then(() => {
+        console.log(window.localStorage.getItem('access_token'))
+        fetch(`http://3.35.151.102:8080/user/me`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.localStorage.getItem('access_token')}`,
+            },
         })
-        .catch((err) => console.log(err));
+        .then(resolve => resolve.json())
+        .then(resolve => {
+            const box = document.createElement('h1')
+            box.innerText = `
+                ID: ${resolve.name}
+            `
+            document.body.appendChild(box)
+        })
+    })
+    .catch((err) => console.log(err));
 }
 
 const postSignUpInfo = (email, password, name) => {
