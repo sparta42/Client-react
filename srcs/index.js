@@ -1,4 +1,8 @@
+import test from 'test';
+
 const app = elem => {
+  test();
+
   const state = {text: 1};
 
   const $elem = document.querySelector(elem);
