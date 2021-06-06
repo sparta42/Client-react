@@ -1,0 +1,35 @@
+name: PUSH TEST
+
+on:
+  push:
+    - '*'
+    - '!main'
+    - '!development'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: install dependency
+      run: |
+        npm install
+    - name: lint test
+      run: |
+        npm run lint
+      env:
+        CI: true
+    - name: build test
+      run: |
+        npm run build
+      env:
+        CI: true

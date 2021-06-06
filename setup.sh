@@ -5,4 +5,6 @@ npm i -D @babel/core @babel/preset-env
 npm i -D babel-loader
 npm i -D sass sass-loader css-loader style-loader
 
-npm i -D eslint
+npm i -D eslint eslint-config-tui
+
+npm i -D jest
