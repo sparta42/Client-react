@@ -2,9 +2,10 @@ name: PUSH TEST
 
 on:
   push:
-    - '*'
-    - '!main'
-    - '!development'
+    branches:
+      - '*'
+      - '!main'
+      - '!development'
 
 jobs:
   build:
