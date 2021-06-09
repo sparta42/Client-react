@@ -2,12 +2,12 @@ const app = elem => {
 
   const $elem = document.querySelector(elem);
 
-  const state = {WheelEvent: 1};
+  const state = {WheelEvent: 1, Marker: 0 };
 
   // Map 을 생성하여 imag tag가 만들어지는 것
   const makeMapImg = () => {
     
-    const mapUrl = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster";
+    const mapUrl = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors";
 
     const clientID = "kdv137thbf";
     // const clientSecret = "sOjjiOeKAXLti6WbzVZTai0tZ9tdakDMOhCJl9I3";
@@ -18,27 +18,25 @@ const app = elem => {
       w: 600,
       h: 600,
       "X-NCP-APIGW-API-KEY-ID": clientID,
-      // "X-NCP-APIGW-API-KEY": clientSecret
     }
-
     const imgTag = document.createElement("img");
-
+      
     function setImg() {
       const optionString = Object.entries(mapOption).map(e => e.join('=')).join('&');
       const srcString = `${mapUrl}?${optionString}`;
       imgTag.setAttribute('src', srcString.toString());
     }
-    
+
     function zoomIn() {
       if (state.WheelEvent)
         mapOption.level += 1;
-      state.WheelEvent = mapOption.level < 22 ? 1 : 0;
+      state.WheelEvent = mapOption.level < 18 ? 1 : 0;
     }
 
     function zoomOut(){
      if (state.WheelEvent)
         mapOption.level -= 1;
-      state.WheelEvent = mapOption.level >= 2 ? 1 : 0;
+      state.WheelEvent = mapOption.level >= 4 ? 1 : 0;
     }
 
     imgTag.addEventListener("wheel", (e) => {
@@ -47,6 +45,12 @@ const app = elem => {
       } else {
         zoomOut();
       }
+      setImg();
+      return imgTag;
+    })
+
+    imgTag.addEventListener('click', () => {
+      state.Marker = state.Marker? 0 : 1;
       setImg();
       return imgTag;
     })
