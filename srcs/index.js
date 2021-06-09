@@ -2,91 +2,62 @@ const app = elem => {
 
   const $elem = document.querySelector(elem);
 
-  const $layer = document.createElement("layer");
-  const $layer2 = document.createElement("layer");
+  const state = {WheelEvent: 1};
 
-  const $text = document.createElement("h1");
-  const $text2 = document.createElement("h2");
-  $text.innerText = "hi";
-  $text2.innerText = "hellow";
-  
-  $layer.appendChild($text);
-  $layer2.appendChild($text2);
-  $layer2.zindex = -1;
-  $elem.appendChild($layer);
-  $elem.appendChild($layer2);
+  // Map 을 생성하여 imag tag가 만들어지는 것
+  const makeMapImg = () => {
+    
+    const mapUrl = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster";
 
-  const MapApi = () => {
+    const clientID = "kdv137thbf";
+    // const clientSecret = "sOjjiOeKAXLti6WbzVZTai0tZ9tdakDMOhCJl9I3";
 
-    const $staticMap = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors";
-
-    const $imgTag = document.createElement("img");
-
-    const $mapOption = {
+    const mapOption = {
       center: "127.1054221,37.3591614",
-      level: 10,
-      w: 500,
-      h: 500,
-      "X-NCP-APIGW-API-KEY-ID": "kdv137thbf"
+      level: 16,
+      w: 600,
+      h: 600,
+      "X-NCP-APIGW-API-KEY-ID": clientID,
+      // "X-NCP-APIGW-API-KEY": clientSecret
     }
 
-    const getSrc = () => {
-      const $queryString = Object.entries($mapOption).map(e=>e.join('=')).join('&');
-      const $src = `${$staticMap}?${$queryString}`;
-      return $src.toString();
+    const imgTag = document.createElement("img");
+
+    function setImg() {
+      const optionString = Object.entries(mapOption).map(e => e.join('=')).join('&');
+      const srcString = `${mapUrl}?${optionString}`;
+      imgTag.setAttribute('src', srcString.toString());
     }
     
-    const zoomIn = () => {
-      if ($mapOption.level + 1 < 22)
-        $mapOption.level += 1;
-      return ;
+    function zoomIn() {
+      if (state.WheelEvent)
+        mapOption.level += 1;
+      state.WheelEvent = mapOption.level < 22 ? 1 : 0;
     }
 
-    const zoomOut = () => {
-      if ($mapOption.level - 1 >= 0)
-        $mapOption.level -= 1;
-      return ;
+    function zoomOut(){
+     if (state.WheelEvent)
+        mapOption.level -= 1;
+      state.WheelEvent = mapOption.level >= 2 ? 1 : 0;
     }
-    
-    $imgTag.addEventListener("wheel", (event) => {
-      if (event.deltaY < 0)
-        zoomOut();
-      else
+
+    imgTag.addEventListener("wheel", (e) => {
+      if (e.deltaY < 0) {
         zoomIn();
-      $imgTag.setAttribute("src", getSrc());
-      return $imgTag;
+      } else {
+        zoomOut();
+      }
+      setImg();
+      return imgTag;
     })
 
-    let distanceX = 0;
-    let distanceY = 0;
-    $imgTag.addEventListener("dragstart", (event) => {
-      console.log(event);
-      distanceX = parseInt(event.x);
-      distanceY = parseInt(event.y);
-    })
-
-    $imgTag.addEventListener("dragend", (event) => {
-      console.log(event);
-      distanceY -= parseInt(event.y);
-      distanceX -= parseInt(event.x);
-      console.log(distanceX, distanceY);
-      const newX = 37.3591614 - distanceY/$mapOption.level;
-      const newY = 127.1054221 - distanceX/$mapOption.level;
-      $mapOption.center = `${newY},${newX}`;
-      $imgTag.setAttribute("src", getSrc());
-      return $imgTag;
-    })
-    
-    $imgTag.addEventListener("click", (e) => {
-      console.log(e);
-    })
-
-    $imgTag.setAttribute("src", getSrc());
-    return $imgTag;
+    setImg();
+    return imgTag;
   }
-  
+ 
   const render = () => {
-    $elem.appendChild(MapApi());
+    const map = makeMapImg();
+    $elem.appendChild(map);
   };
 
   render();
