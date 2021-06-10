@@ -3,3 +3,23 @@ $body-color: red;
 body {
   color: $body-color;
 }
+
+.map {
+  width: 500px;
+  height: 500px;
+
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.map .staticMap {
+  --top: 0;
+  --left: 0;
+  
+  position: absolute;
+  top: calc(var(--top) * 1px);
+  left: calc(var(--left) * 1px);
+
+  -webkit-user-drag: none;
+}

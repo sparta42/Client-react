@@ -1,24 +1,16 @@
-const app = elem => {
-  const state = {text: 1};
+import '../public/style.scss';
+import map from './map';
 
+const app = elem => {
   const $elem = document.querySelector(elem);
 
   const render = () => {
-    $elem.innerHTML = `
-      <h1>
-        ${state.text}
-      </h1>
-    `;
+    $elem.appendChild(map($elem));
   };
-
-  $elem.addEventListener('click', () => {
-    state.text = state.text + 1;
-    render();
-  });
 
   render();
 
   return $elem;
 };
 
-app('body');
+app('.map');
