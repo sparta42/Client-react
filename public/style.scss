@@ -5,8 +5,8 @@ body {
 }
 
 .map {
-  width: 1000px;
-  height: 1000px;
+  width: 500px;
+  height: 500px;
 
   margin: auto;
   overflow: hidden;
@@ -14,8 +14,8 @@ body {
 }
 
 .map .staticMap {
-  --top: 0;
-  --left: 0;
+  --top: -250;
+  --left: -250;
   
   position: absolute;
   top: calc(var(--top) * 1px);

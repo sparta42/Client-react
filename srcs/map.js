@@ -34,8 +34,8 @@ const map = (width, height, lat, lot, zoom) => {
       lat: state.lat,
       lot: state.lot
     }, state.zoom, state.width, state.height, {
-      x: (state.width / 2) - (isNaN(left) ? 0 : left + 250),
-      y: (state.height / 2) - (isNaN(top) ? 0 : top + 250)
+      x: (state.width / 2) - (isNaN(left) ? 0 : (left + 250) / 2),
+      y: (state.height / 2) - (isNaN(top) ? 0 : (top + 250) / 2)
     });
     document.querySelector('.map').appendChild(map(1000, 1000, lat, lot, 16));
   };
