@@ -1,14 +1,14 @@
 import * as env from '../.env';
 import draggable from './lib/dragable';
-import location from './lib/location';
 
-const map = () => {
+
+const map = (width, height, lat, lot, zoom) => {
   let state = {
-    width: 1000,
-    height: 1000,
-    lat: 37.252151,
-    lot: 127.12412,
-    level: 16
+    width,
+    height,
+    lat,
+    lot,
+    zoom
   };
 
   const setState = (key, value) => {
@@ -19,27 +19,17 @@ const map = () => {
 
   const render = () => {
     $elem.src = `${env.BASE_URL}`
-                + `?w=${state.width}&h=${state.height}&center=${state.lot},${state.lat}&level=${state.level}`
+                + `?w=${state.width}&h=${state.height}&center=${state.lot},${state.lat}&level=${state.zoom}`
                 + `&X-NCP-APIGW-API-KEY-ID=${env.CLIENT_ID}`;
   };
 
-  const lot = location();
-
-  const init = () => {
-    lot.getPos().then(pos => {
-      setState('lot', pos.lot);
-      setState('lat', pos.lat);
-      render();
-    });
-  };
-
   const eventBind = () => {
-    $elem.addEventListener('mousedown', draggable($elem));
+    $elem.addEventListener('mousedown', draggable($elem, 0, 0));
   };
 
   (() => {
     $elem.classList.add('staticMap');
-    init();
+    render();
     eventBind();
   })();
 

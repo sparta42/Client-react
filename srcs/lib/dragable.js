@@ -1,4 +1,4 @@
-const draggable = $elem => e => {
+const draggable = ($elem, initX, initY) => e => {
   const offsetX = parseInt($elem.style.getPropertyValue('--left'), 10);
   const offsetY = parseInt($elem.style.getPropertyValue('--top'), 10);
 
@@ -6,8 +6,8 @@ const draggable = $elem => e => {
   const startY = e.clientY;
 
   const moveAt = event => {
-    $elem.style.setProperty('--left', event.clientX - startX + (isNaN(offsetX) ? 0 : offsetX));
-    $elem.style.setProperty('--top', event.clientY - startY + (isNaN(offsetX) ? 0 : offsetY));
+    $elem.style.setProperty('--left', event.clientX - startX + (isNaN(offsetX) ? initX : offsetX));
+    $elem.style.setProperty('--top', event.clientY - startY + (isNaN(offsetX) ? initY : offsetY));
   };
 
   const mouseMove = event => {
