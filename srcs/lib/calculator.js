@@ -29,3 +29,15 @@ const calcuateP2L = (center, zoom, width, height, point) => {
 };
 
 export default calcuateP2L;
+
+/*
+const {lot, lat} = calcuateP2L({
+        lat: pos.lat,
+        lot: pos.lot
+      }, state.zoom, state.width, state.height,
+      {
+        x: 500,
+        y: 250
+      });
+      $elem.appendChild(map(state.width, state.height, lat, lot, state.zoom));
+*/
