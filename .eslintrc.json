@@ -13,5 +13,6 @@
         "sourceType": "module"
     },
     "rules": {
+        "consistent-return":"off"
     }
 }

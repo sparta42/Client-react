@@ -1,49 +1,46 @@
 import * as env from '../.env';
+import draggable from './lib/dragable';
+import location from './lib/location';
 
-const map = parent => {
-  const state = {
+const map = () => {
+  let state = {
     width: 1000,
     height: 1000,
-    lat: 127.12412,
-    lot: 37.252151,
+    lat: 37.252151,
+    lot: 127.12412,
     level: 16
+  };
+
+  const setState = (key, value) => {
+    state = Object.assign({}, state, {[key]: value});
   };
 
   const $elem = document.createElement('img');
 
   const render = () => {
     $elem.src = `${env.BASE_URL}`
-                + `?w=${state.width}&h=${state.height}&center=${state.lat},${state.lot}&level=${state.level}`
+                + `?w=${state.width}&h=${state.height}&center=${state.lot},${state.lat}&level=${state.level}`
                 + `&X-NCP-APIGW-API-KEY-ID=${env.CLIENT_ID}`;
   };
 
-  $elem.addEventListener('mousedown', e => {
-    const offsetX = parseInt($elem.style.getPropertyValue('--left'), 10);
-    const offsetY = parseInt($elem.style.getPropertyValue('--top'), 10);
+  const lot = location();
 
-    const startX = e.clientX;
-    const startY = e.clientY;
+  const init = () => {
+    lot.getPos().then(pos => {
+      setState('lot', pos.lot);
+      setState('lat', pos.lat);
+      render();
+    });
+  };
 
-    const moveAt = event => {
-      $elem.style.setProperty('--left', event.clientX - startX + (isNaN(offsetX) ? 0 : offsetX));
-      $elem.style.setProperty('--top', event.clientY - startY + (isNaN(offsetX) ? 0 : offsetY));
-    };
-
-    const mouseMove = event => {
-      moveAt(event);
-    };
-
-    parent.addEventListener('mousemove', mouseMove);
-
-    parent.onmouseup = () => {
-      parent.removeEventListener('mousemove', mouseMove);
-      parent.onmouseup = null;
-    };
-  });
+  const eventBind = () => {
+    $elem.addEventListener('mousedown', draggable($elem));
+  };
 
   (() => {
     $elem.classList.add('staticMap');
-    render();
+    init();
+    eventBind();
   })();
 
   return $elem;
