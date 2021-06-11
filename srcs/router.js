@@ -1,50 +1,45 @@
-//참고자료 : https://www.youtube.com/watch?v=6BozpmSjk-Y&ab_channel=dcodedcode
-import Dashboard from "./view/Dashboard.js";
-
-const navigateTo = url => {
-	history.pushState(null, null, url);
-	router();
-}
+// 참고자료 : https://www.youtube.com/watch?v=6BozpmSjk-Y&ab_channel=dcodedcode
+import Dashboard from './view/Dashboard.js';
 
 const router = async () => {
-	const routes = [
-		{path: "/", view: Dashboard},
-		{path: "/posts", view: () => console.log("Viewing Posts")},
-		{path: "/settings", view: () => console.log("Viewing Settings")}
-	];
+  const routes = [
+    {path: '/',
+      view: Dashboard}
+  ];
 
-	const potentialMatches = routes.map(route => {
-		return {
-			route: route,
-			isMatch: location.pathname === route.path
-		}
-	})
+  const potentialMatches = routes.map(route => ({
+    route,
+    isMatch: location.pathname === route.path
+  }));
 
-	let match = potentialMatches.find(potentialMatch => potentialMatch.isMatch);
+  let Match = potentialMatches.find(potentialMatch => potentialMatch.isMatch);
 
-	if (!match) {
-		match = {
-			route: routes[0],
-			isMatch: true
-		}
-	}
+  if (!Match) {
+    Match = {
+      route: routes[0],
+      isMatch: true
+    };
+  }
 
-	const view = new match.route.view();
+  const View = new Match.route.View();
 
-	document.querySelector("#app").innerHTML = await view.getHtml();
+  document.querySelector('#app').innerHTML = await View.getHtml();
+};
 
-	console.log(match.route.view());
-}
+const navigateTo = url => {
+  history.pushState(null, null, url);
+  router();
+};
 
-window.addEventListener("popstate", router);
+window.addEventListener('popstate', router);
 
-document.addEventListener("DOMContentLoaded", () => {
-	document.body.addEventListener("click", e => {
-		if (e.target.matches("[data-link]")) {
-			e.preventDefault();
-			navigateTo(e.target.href);
-		}
-	})
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', e => {
+    if (e.target.matches('[data-link]')) {
+      e.preventDefault();
+      navigateTo(e.target.href);
+    }
+  });
 
-	router();
-})
+  router();
+});
