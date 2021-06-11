@@ -7,7 +7,7 @@ module.exports = merge(common, {
     devServer: {
         historyApiFallback: true,
         host: "0.0.0.0",
-        port: 4000,
+        port: 4001,
         //proxy: '',
     }
 });
