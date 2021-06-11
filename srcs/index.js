@@ -1,24 +1,30 @@
+import '../public/style.scss';
+import map from './map';
+import location from './lib/location';
+
 const app = elem => {
-  const state = {text: 1};
-
-  const $elem = document.querySelector(elem);
-
-  const render = () => {
-    $elem.innerHTML = `
-      <h1>
-        ${state.text}
-      </h1>
-    `;
+  const state = {
+    width: 1000,
+    height: 1000,
+    zoom: 16
   };
 
-  $elem.addEventListener('click', () => {
-    state.text = state.text + 1;
-    render();
-  });
+  const $elem = document.querySelector(elem);
+  const geo = location();
+
+  const init = () => {
+    geo.getPos().then(pos => {
+      $elem.appendChild(map(state.width, state.height, pos.lat, pos.lot, state.zoom));
+    });
+  };
+
+  const render = () => {
+    init();
+  };
 
   render();
 
   return $elem;
 };
 
-app('body');
+app('.map');
