@@ -2,12 +2,13 @@ const app = elem => {
   const clientId = "1zszamdg6u"
   const state = {
     level : 1,
-    centerX : "127.1054221",
-    centerY : "37.3591614",
-    width: '500px',
-    height: '500px'
+    centerX : 127.1054221,
+    centerY : 37.3591614,
+    width: 500,
+    height: 500,
+    scale : 2
   }
-  const center = `${state.centerX},${state.centerY}`;
+  let center = `${state.centerX},${state.centerY}`;
   const $elem = document.querySelector(elem);
   const render = () => {
     //$elem.appendChild(staticMap());
@@ -15,7 +16,9 @@ const app = elem => {
 
   let map = document.querySelector('#theMap');
 
-  const clickZoomIn = () => {
+  const clickZoomIn = (e) => {
+    calLatitudeLongitude(e.screenX, e.screenY);
+    center = `${state.centerX},${state.centerY}`;
     if (state.level < 16) {
       state.level = state.level + 1;
       console.log(center);
@@ -39,8 +42,8 @@ const app = elem => {
       h = h / 2;
     }
     let C = (256 / (2 * Math.PI)) * Math.pow(2, state.level);
-    let x = C * (state.centerX * Math.PI / 18- + Math.PI);
-    let y = C * (Math.PI - Math.log(Math.tan(Math.PI / 4 + state.centerY * Math.PI / 180 / 2)));
+    let x = C * (state.centerX * Math.PI / 180 + Math.PI);
+    let y = C * (Math.PI - Math.log(Math.tan((Math.PI / 4) + state.centerY * Math.PI / 180 / 2)));
     let xp = x - (state.width / 2 - w);
     let yp = y - (state.height / 2 - h);
     let M = (xp / C) - Math.PI;
@@ -51,9 +54,6 @@ const app = elem => {
     state.centerY = lat_p;
   }
 
-  document.getElementById('theMap').addEventListener("click", (e) => {
-    calLatitudeLongitude(e.screenX, e.screenY);
-  });
   document.getElementById('theMap').addEventListener("click", clickZoomIn);
   document.getElementById('theMap').addEventListener("wheel", zoom);
 
