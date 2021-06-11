@@ -1,0 +1,16 @@
+html, head, body {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+	background-color: $body-color;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.imgContainer {
+  width: 100%;
+  height: 100%;
+}

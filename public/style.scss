@@ -1,5 +1,3 @@
-$body-color: red;
-
-body {
-  color: $body-color;
-}
+@import 'reset.scss';
+@import 'variable.scss';
+@import 'main.scss';
